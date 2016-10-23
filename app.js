@@ -12,7 +12,7 @@ var cors = require('cors');
 var expressApp = express();
 
 //expressApp.use(cors({origin: 'http://localhost:3000'}));
-expressApp.use(cors({origin: 'https://hindsightinvesting.herokuapp.com/#!/investments'}));
+expressApp.use(cors({origin: 'http://hindsightinvesting.herokuapp.com/#!/investments'}));
 
 expressApp.get('/getIndividualStockData', function (req, res) {
     request('https://ichart.finance.yahoo.com/table.csv?s='+req.query.stockTicker+'&g=w', function (error, response, body) {
@@ -32,6 +32,8 @@ var server = expressApp.listen(8000, function () {
 
     var host = server.address().address;
     var port = server.address().port;
+
+    console.log("express app server:   " + server.address().address);
 
     console.log("Stock data server listening at http://%s:%s", host, port);
 
