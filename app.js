@@ -1,20 +1,15 @@
 //serves up our static files
 var express = require('express');
 var app = express();
-console.log("Serving on process.env.PORT or defaulting to 3000");
-app.use(express.static(__dirname + '/app'));
-app.listen(process.env.PORT || 3000);
-
-
-//this server acts as a middleman between the client side angular app and Yahoo finance.
 var request = require('request');
 var cors = require('cors');
-var expressApp = express();
+var port = process.env.PORT || 3000;
 
-//expressApp.use(cors({origin: 'http://localhost:3000'}));
-expressApp.use(cors({origin: 'http://hindsightinvesting.herokuapp.com/#!/investments'}));
+app.use(express.static(__dirname + '/app'));
+app.use(cors({origin: 'http://localhost:3000'}));
+//expressApp.use(cors({origin: 'http://hindsightinvesting.herokuapp.com/#!/investments'}));
 
-expressApp.get('/getIndividualStockData', function (req, res) {
+app.get('/getIndividualStockData', function (req, res) {
     request('https://ichart.finance.yahoo.com/table.csv?s='+req.query.stockTicker+'&g=w', function (error, response, body) {
         console.log(req.query.stockTicker);
         if (!error && response.statusCode == 200) {
@@ -28,13 +23,14 @@ expressApp.get('/getIndividualStockData', function (req, res) {
     })
 });
 
-var server = expressApp.listen(8000, function () {
+var server = app.listen(port, function () {
 
     var host = server.address().address;
     var port = server.address().port;
 
-    console.log("express app server:   " + server.address().address);
-
+    //serves up our static files
+    console.log("Serving statics on port: "+port);
+    //this server also acts as a middleman between the client side angular app and Yahoo finance.
     console.log("Stock data server listening at http://%s:%s", host, port);
 
 });
