@@ -15,7 +15,7 @@ var expressApp = express();
 expressApp.use(cors({origin: 'https://hindsightinvesting.herokuapp.com/#!/investments'}));
 
 expressApp.get('/getIndividualStockData', function (req, res) {
-    request('http://ichart.finance.yahoo.com/table.csv?s='+req.query.stockTicker+'&g=w', function (error, response, body) {
+    request('https://ichart.finance.yahoo.com/table.csv?s='+req.query.stockTicker+'&g=w', function (error, response, body) {
         console.log(req.query.stockTicker);
         if (!error && response.statusCode == 200) {
             console.log('Stock data retrieval success');
