@@ -6,8 +6,8 @@ var cors = require('cors');
 var port = process.env.PORT || 3000;
 
 app.use(express.static(__dirname + '/app'));
-app.use(cors({origin: 'http://localhost:3000'}));
-//expressApp.use(cors({origin: 'http://hindsightinvesting.herokuapp.com/#!/investments'}));
+//app.use(cors({origin: 'http://localhost:3000'}));
+expressApp.use(cors({origin: 'http://hindsightinvesting.herokuapp.com/#!/investments'}));
 
 app.get('/getIndividualStockData', function (req, res) {
     request('https://ichart.finance.yahoo.com/table.csv?s='+req.query.stockTicker+'&g=w', function (error, response, body) {
