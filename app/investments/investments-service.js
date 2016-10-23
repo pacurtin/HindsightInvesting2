@@ -12,7 +12,7 @@ angular.module('hindsightInvesting.investments').factory('InvestmentsService',['
     }*/
     getStockData: function (stockTicker) {
       //return $http.get('http://localhost:3000/getIndividualStockData', {params: { stockTicker: stockTicker }}).success(function(data){
-      return $http.get('http://hindsightinvesting.herokuapp.com:3000/getIndividualStockData', {params: { stockTicker: stockTicker }}).success(function(data){
+      return $http.get('http://hindsightinvesting.herokuapp.com/getIndividualStockData', {params: { stockTicker: stockTicker }}).success(function(data){
         data=data.substring(42,data.length);
         //console.log(data);
       });
