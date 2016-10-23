@@ -3,11 +3,11 @@ var request = require('request');
 var cors = require('cors');
 var app = express();
 
-app.use(cors({origin: 'http://localhost:5000'}));
+app.use(cors({origin: 'http://localhost:3000'}));
 
 app.get('/getIndividualStockData', function (req, res) {
   request('http://ichart.finance.yahoo.com/table.csv?s='+req.query.stockTicker+'&g=w', function (error, response, body) {
-    console.log(req.query.stockTicker)
+    console.log(req.query.stockTicker);
     if (!error && response.statusCode == 200) {
       console.log('Stock data retrieval success');
       res.end( body );
@@ -17,13 +17,13 @@ app.get('/getIndividualStockData', function (req, res) {
       res.end('Stock not found');
     }
   })
-})
+});
 
 var server = app.listen(8000, function () {
 
-  var host = server.address().address
-  var port = server.address().port
+  var host = server.address().address;
+  var port = server.address().port;
 
   console.log("Stock data server listening at http://%s:%s", host, port)
 
-})
+});
